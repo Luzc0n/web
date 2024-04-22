@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html class="nojs html" lang="ko-KR">
+ <head>
+
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+  <meta name="generator" content="2018.0.0.379"/>
+  <meta name="viewport" content="width=device-width, initial-scale=0.78, maximum-scale=0.78"/>
+  
+  <script src="jquery-3.6.0.min.js"></script>
+<script>
+ $(document).ready(function(){
+        $("#page").show();
+        var teamname;
+        var teamnamechk = 0;
+        $("#teamname").focus();
+        $("#u329").click(function(){ // 시작코드 정답 체크
+                       //     var dynamicVariables["startcode" + quizset] = "0"
+                      //      dynamicVariables["startcode" + ;quizset] = $("#inputdata").val();
+                            teamname = $("#teamname").val()
+                            if(teamnamechk == 0 && teamname.trim() !== ""){ // 팀 이름이 입력되었고, 체크가 되지 않았을 경우
+                                    $("#teamname").hide();
+                                    $("#img_main").attr('src','./images/startpopup_start.png');
+                                    $("#img_btn").attr('src','./images/btn_start.png');
+                                    $("#u186").text(teamname);
+                                    teamnamechk ++;
+                                    $("#teamname").focus();
+                                    return;
+                                }else if(teamnamechk >= 1){
+                                 //       $("#u323").hide();
+                                        localStorage.setItem("teamname", teamname);
+                                        window.location.href = "main.html";
+                                        return;
+                                }   
+            });
+         $("#teamname").keypress(function(event){ // input 엔터로 입력
+            //			console.log("test");
+                        if(event.which == 13) {
+                            $("#u329").click();
+                            return false
+                            ;
+                            }   
+            });
+    });
+    
+</script> 
+  
+  <title>시작</title>
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="css/site_global.css?crc=444006867"/>
+  <link rel="stylesheet" type="text/css" href="css/index.css?crc=85471190" id="pagesheet"/>
+   </head>
+ <body>
+
+  <div class="clearfix borderbox" id="page"><!-- group -->
+   <div class="clip_frame grpelem" id="u94" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- 배경화면2 -->
+    <img class="block" id="u94_img" src="images/bground2.png" alt="" width="1340" height="800"/>
+   </div>
+       
+    <div class="clip_frame grpelem" id="u171" data-sizePolicy="fixed" data-pintopage="page_fixedCenter">
+        <img class="position_content" id="img_reset" src="images/blank.png" alt="" width="80" height="60"/><!-- 리셋버튼 -->
+    </div>
+    <div class="main" id="main">
+        <div class="grpelem" id="u323" data-sizePolicy="fixed" data-pintopage="page_fixedCenter">
+            <input id="teamname" type="text" style="border:0px solid white; background-color:transparent;font-size:32pt; text-align: center;" size="18" placeholder="팀 이름을 입력하세요" maxlength="10" autofocus=""><!-- input -->
+        </div>
+        <div class="grpelem" id="u186" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- 엔딩 시간 표시 -->
+        </div>
+        <div class="clip_frame clearfix grpelem" id="u313" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- image -->
+            <img class="position_content" id="img_main" src="images/startpopup_team.png" alt="" width="994" height="764"/>
+       </div>
+        <div class="grpelem" id="u329" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- 시작코드입력버튼 -->
+            <img class="position_content" id="img_btn" src="images/btn_teamname.png" alt=""/>
+        </div>
+    </div>
+    <div class="quiz" id="quiz">
+    </div>
+</div>
+  <!-- Other scripts -->
+
+  
+   </body>
+</html>
