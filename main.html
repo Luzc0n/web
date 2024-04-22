@@ -315,6 +315,7 @@
                             $("#inputdata2").show();
                             $("#u346").hide(); // 왼쪽가기
                             $("#u359").hide(); // 오른쪽가기
+                            $("#u326").show(); // X 열기
                             $("#img_main").attr('src','./images/answer.png');
                             $("#inputdata2").val("");
                             $("#u372").hide();
@@ -390,10 +391,11 @@
                    //         $("#u372").show(); //왼쪽정답버튼 나오게
                    //         $("#u375").hide(); 
                    //         $("#u372").hide();
-                            if (hintpage == 0){ // 처음 했을 때
+                            if (hintpage == 0){ // 처음 했을 때 - 힌트 보기
                                 console.log(hintpage);
                                 $("#u346").hide(); // 왼쪽가기
                                 $("#u359").hide(); // 오른쪽가기
+                                $("#u326").hide(); // X 닫기
                                 useHint(quizset+quizN[quizset]); // 힌트 사용 함수 호출
                                 $("#u216").text(hintCount);
                                 $("#img_main").attr('src','./images/hint_' + quizset + '_0' + quizN[quizset] +'.png');
@@ -403,6 +405,7 @@
                             } else if (hintpage == 100) { // 힌트사용했을 때
                                 console.log(hintpage);
                              //   $("#u346").show(); // 왼쪽가기
+                                $("#u326").show(); // X 열기
                                 $("#u359").show(); // 오른쪽가기
                                 $("#u375").hide(); // 오른쪽 입력 버튼 사라지게
                                 $("#u372").hide(); // 왼쪽 정답 버튼 사라지게
