@@ -46,7 +46,7 @@
         }
 
     var teamname = localStorage.getItem("teamname");
-    console.log(teamname);
+    console.log(teamname);  
     var tutor = 1;
     var hintUsed = {
                 'LNG': [false, false, false, false],
@@ -237,7 +237,8 @@
                       //      dynamicVariables["startcode" + quizset] = $("#inputdata").val();
                             startcode[quizset] = $("#inputdata").val().toLowerCase();
                             var correctCode = getCorrectCode (quizset); // 현재 퀴즈에 대한 정답을 가져옴
-                            if(startcode[quizset] == correctCode){
+                            var isCorrectcode = correctCode.includes(startcode[quizset]);
+                            if(isCorrectcode){
                                     quizFirst[quizset] = 0;
                                     $("#u323").hide();
                                     $("#u329").hide();
@@ -328,7 +329,8 @@
                        //     $("#u382").hide();
                             answerinput[quizset+quizN[quizset]] = $("#inputdata2").val().toLowerCase();
                             var correctAnswer = getCorrectAnswer(quizset+quizN[quizset]); // 현재 퀴즈에 대한 정답을 가져옴
-                            if(answerinput[quizset+quizN[quizset]] == correctAnswer){ // 정답 맞았을 때
+                            var isCorrect = correctAnswer.includes(answerinput[quizset+quizN[quizset]]);
+                            if(isCorrect){ // 정답 맞았을 때
                                     $("#u324").hide();
                                     $("#u359").show();
                                     $("#u346").show();
@@ -475,19 +477,19 @@
         // 각 퀴즈에 대한 정답을 반환하는 함수
         // quizset이 A이면 퀴즈A의 정답을 반환하고, B이면 퀴즈B의 정답을 반환하는 등의 로직을 구현
         if (quizset === "LNG") {
-            return "lng"; // 퀴즈A의 정답
+            return ["전력사업부문 전영준, 도시가스사업부문 문상학, lng사업부문 이종수","전력사업부문전영준,도시가스사업부문문상학,lng사업부문이종수","전력사업부문 전영준,도시가스사업부문 문상학,lng사업부문 이종수","전력사업부문전영준, 도시가스사업부문문상학, lng사업부문이종수","전력사업부문 전영준, 도시가스사업부문 문상학, lng사업부문이종수","전력사업부문전영준, 도시가스사업부문 문상학, lng사업부문 이종수","전력사업부문 전영준, 도시가스사업부문문상학, lng사업부문 이종수"]; // 퀴즈A의 정답
         } else if (quizset === "ENS") {
-            return "ens"; // 퀴즈B의 정답
+            return ["서건기 부문장","서건기부문장"]; // 퀴즈B의 정답
         } else if (quizset === "HYD") {
-            return "hyd"; // 퀴즈B의 정답
+            return "문상요"; // 퀴즈B의 정답
         } else if (quizset === "SOL") {
-            return "sol"; // 퀴즈B의 정답
+            return ["energy solution사업지원실 염창열", "energysolution사업지원실염창열", "에너지솔루션사업지원실염창열","에너지 솔루션 사업지원실 염창열","에너지 솔루션사업지원실 염창열"]; // 퀴즈B의 정답
         } else if (quizset === "PGA") {
-            return "pga"; // 퀴즈B의 정답
+            return ["우리는 sk를 선택한 구성원","우리는sk를선택한구성원","우리는 sk를 선택한구성원"]; // 퀴즈B의 정답
         } else if (quizset === "PGB") {
-            return "pgb"; // 퀴즈B의 정답
+            return ["함께해야 더 행복한 우리","함께해야더행복한우리","함께해야 더행복한 우리"]; // 퀴즈B의 정답
         } else if (quizset === "Health") {
-            return "health"; // 퀴즈B의 정답
+            return ["행복경영팀1"]; // 퀴즈B의 정답
         }
         // 퀴즈가 추가될 때마다 해당 퀴즈에 대한 정답을 반환하는 로직을 추가
     }
@@ -495,41 +497,41 @@
         // 각 퀴즈에 대한 정답을 반환하는 함수
         // quizset이 A이면 퀴즈A의 정답을 반환하고, B이면 퀴즈B의 정답을 반환하는 등의 로직을 구현
         if (quiz === "LNG1") {
-            return "1111"; // 
+            return ["4832640"]; // 
         } else if (quiz === "LNG2") {
-            return "clean"; // 
+            return ["clean"]; // 
         } else if (quiz === "LNG3") {
-            return "손익risk"; // 
+            return ["손익risk","손익 risk"]; // 
         } else if (quiz === "LNG4") {
-            return "bayu undan ccs";
+            return ["bayu undan ccs","bayuundanccs"];
         } else if (quiz === "ENS1") {
-            return "318"; // 
+            return ["318"]; // 
         } else if (quiz === "ENS2") {
-            return "당진,임자도,청산,전남";
+            return ["당진,임자도,청산,전남","당진, 임자도, 청산, 전남"];
         } else if (quiz === "ENS3") {
-            return "인재중요"; //
+            return ["인재중요"]; //
         } else if (quiz === "ENS4") {
-            return "re100ppa"; // 
+            return ["re100ppa","re100 ppa","re100,ppa","re100, ppa"]; // 
         } else if (quiz === "HYD1") {
-            return "bcfg"; // 
+            return ["bcfg"]; // 
         } else if (quiz === "HYD2") {
-            return "4310"; // 
+            return ["4310"]; // 
         } else if (quiz === "HYD3") {
-            return "화석연료안전탄소중립국내에너지자립도"; // 
+            return ["화석연료안전탄소중립국내에너지자립도","화석연료 안전 탄소중립 국내에너지자립도","화석연료, 안전, 탄소중립, 국내에너지자립도","화석연료,안전,탄소중립,국내에너지자립도"]; // 
         } else if (quiz === "HYD4") {
-            return "부생수소액화수소plant"; // 
+            return ["부생수소액화수소plant","부생수소 액화수소plant","부생수소 액화수소플랜트","부생수소액화수소플랜트","부생수소,액화수소플랜트","부생수소, 액화수소플랜트","부생수소, 액화수소plant","부생수소,액화수소plant"]; // 
         } else if (quiz === "SOL1") {
             return "8053"; // 
         } else if (quiz === "SOL2") {
-            return "0000"; //
+            return "7245"; //
         } else if (quiz === "SOL3") {
             return "green"; // 
         } else if (quiz === "SOL4") {
-            return "0000"; // 
+            return "간헐성"; // 
         } else if (quiz === "PGA1") {
-            return "0000"; // 
+            return "8053"; // 
         } else if (quiz === "PGA2") {
-            return "구성원전체의행복,vwbe,supex,지속적"; // 
+            return ["구성원전체의행복,vwbe,supex,지속적", "구성원전체의행복, vwbe, supex, 지속적","구성원 전체의 행복, vwbe, supex, 지속적","구성원 전체의 행복,vwbe,supex,지속적"]; // 
         } else if (quiz === "PGB1") {
             return "part"; // 
         } else if (quiz === "PGB2") {
@@ -620,7 +622,7 @@
             <img class="position_content" id="img_end" src="images/blank.png" alt="" width="994" height="764"/>
        </div>
        <div class="grpelem" id="u323" data-sizePolicy="fixed" data-pintopage="page_fixedCenter">
-            <input id="inputdata" type="text" style="border:0px solid white; background-color:transparent;font-size:32pt; text-align: center;" size="18" placeholder="코드를 입력하세요" maxlength="16" autofocus=""><!-- input -->
+            <input id="inputdata" type="text" style="border:0px solid white; background-color:transparent;font-size:32pt; text-align: center;" size="18" placeholder="코드를 입력하세요" maxlength="40" autofocus=""><!-- input -->
         </div>
         <div class="grpelem" id="u324" data-sizePolicy="fixed" data-pintopage="page_fixedCenter">
             <input id="inputdata2" type="text" style="border:0px solid white; background-color:transparent;font-size:32pt;text-align: center;" size="18" placeholder="정답을 입력하세요" maxlength="24" autofocus=""><!-- input -->
