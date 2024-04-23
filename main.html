@@ -489,14 +489,14 @@
                     }else{
                         $("#u178").hide();
                         $("#ending").show();
-                        $("#img_end").attr('src','./images/end_'+quizset+'.png');
+                        $("#img_end").attr('src','./images/end_'+quizset+'.png'); //완료
                         $("#u161_img").attr('src','./images/star_'+ball+'.png'); // 드래곤볼 이미지 변경
                         placeId = "#place" + quizset;
                         $(placeId).attr('src','./images/complete.png');
                         $("#quiz").hide();
                         setTimeout(function() {
                             $("#ending").fadeOut(1000);
-                        }, 1500);
+                        }, 2000);
                         $("#info").show();  // 힌트, 땡수 보이기
                         $("#main").show();
                         quizFirst[quizset] = 100;
