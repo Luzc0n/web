@@ -64,7 +64,7 @@
     var startcode = {}; // 스타트코드
     var answerinput = {}; // 답 입력 변수
     var quizPages = { // 문제당 페이지수
-                            LNG1 : 2, LNG2 : 3, LNG3 : 2, LNG4 : 2,
+                            LNG1 : 2, LNG2 : 2, LNG3 : 2, LNG4 : 2,
                             ENS1 : 2, ENS2 : 2, ENS3 : 2, ENS4 : 2,
                             HYD1 : 2, HYD2 : 2, HYD3 : 2, HYD4 : 2,
                             SOL1 : 2, SOL2 : 2, SOL3 : 2, SOL4 : 2,
@@ -121,6 +121,8 @@
             $("#ending").hide();
             $("#endstat").hide();
             $("#u178").hide();
+            $("#img_btn").hide();
+        
         //튜토리얼부분
             $("#u213").click(function(){
                 $("#main").hide();
@@ -149,6 +151,7 @@
 
            // 퀴즈 세트 선택 함수
             function selectQuizSet(quizSet) {
+                    $("#img_btn").hide();    
                     resetN = 0;
                 if (quizFirst[quizSet] == 1) {
                     quizCount = quizCounts[quizSet];
@@ -174,6 +177,8 @@
                     $("#quiz").show(); //퀴즈 단계
                     $("#ending").show();
                     $("#img_end").attr('src','./images/end_'+quizset+'.png');
+                    $("#main").hide();
+                    $("#info").hide();
                     return true;
                 } else {
                     console.log("나머지" + quizFirst[quizSet]);
@@ -238,13 +243,25 @@
                             startcode[quizset] = $("#inputdata").val().toLowerCase();
                             var correctCode = getCorrectCode (quizset); // 현재 퀴즈에 대한 정답을 가져옴
                             var isCorrectcode = correctCode.includes(startcode[quizset]);
-                            if(isCorrectcode){
+                            if(quizN[quizset] == 2 && quizset =="LNG"){
+                                        console.log("LNG문제2번")
+                                        $("#img_main").attr('src','./images/q_' + quizset + '_0' + quizN[quizset] + '_1.png');
+                                        $("#u324").hide();
+                                        $("#u359").show();
+                                        $("#u346").show();
+                                        $("#u382").hide();
+                                        $("#u375").hide();                                       
+                                        $("#u329").hide();
+                                        $("#img_btn").hide();
+                                        return;
+                                    }
+                                if(isCorrectcode){
                                     quizFirst[quizset] = 0;
                                     $("#u323").hide();
                                     $("#u329").hide();
                                     if (quizset=="Health"){
                                             ball ++; // 드래곤볼 + 1
-                                            $("#img_drgb").attr('src','./images/dragonball_1.png');
+                                            $("#img_drgb").attr('src','./images/dragonball_'+ball+'.png');
                                             $("#u178").show(); // 드래곤볼 획득
                                     }else{
                                             $("#img_main").attr('src','./images/q_' + quizset + '_0' + quizN[quizset] + '_1.png');
@@ -331,6 +348,21 @@
                             var correctAnswer = getCorrectAnswer(quizset+quizN[quizset]); // 현재 퀴즈에 대한 정답을 가져옴
                             var isCorrect = correctAnswer.includes(answerinput[quizset+quizN[quizset]]);
                             if(isCorrect){ // 정답 맞았을 때
+                                    if(quizN[quizset] == 2 && quizset =="LNG"){
+                                        console.log("LNG문제2번")
+                                        $("#img_main").attr('src','./images/q_LNG_02_3.png');
+                                        quizcon[quizset] = 1;
+                                        quizN[quizset] ++;
+                                        quizCount --;
+                                        $("#u324").hide();
+                                        $("#u382").hide();
+                                        $("#u375").hide();
+                                        $("#u372").hide();
+                                        $("#u326").hide();
+                                        $("#u329").show();
+                                        $("#img_btn").show();
+                                        return;
+                                    }
                                     $("#u324").hide();
                                     $("#u359").show();
                                     $("#u346").show();
@@ -341,8 +373,8 @@
                                     quizCount --;
                                     if (quizCount == 0){
                                             ball ++; // 드래곤볼 + 1
-                                            $("#img_drgb").attr('src','./images/dragonball_1.png');
-                                            $("#u178").show();// 드래곤볼 획득
+                                            $("#img_drgb").attr('src','./images/dragonball_'+ball+'.png');
+                                            $("#u178").fadeIn(1000);// 드래곤볼 획득
                                             return;
                                             }
                                     else{
@@ -456,10 +488,15 @@
                         return;    
                     }else{
                         $("#u178").hide();
+                        $("#ending").show();
+                        $("#img_end").attr('src','./images/end_'+quizset+'.png');
                         $("#u161_img").attr('src','./images/star_'+ball+'.png'); // 드래곤볼 이미지 변경
                         placeId = "#place" + quizset;
                         $(placeId).attr('src','./images/complete.png');
                         $("#quiz").hide();
+                        setTimeout(function() {
+                            $("#ending").fadeOut(1000);
+                        }, 1500);
                         $("#info").show();  // 힌트, 땡수 보이기
                         $("#main").show();
                         quizFirst[quizset] = 100;
@@ -481,9 +518,9 @@
         } else if (quizset === "ENS") {
             return ["서건기 부문장","서건기부문장"]; // 퀴즈B의 정답
         } else if (quizset === "HYD") {
-            return "문상요"; // 퀴즈B의 정답
+            return ["문상요"]; // 퀴즈B의 정답
         } else if (quizset === "SOL") {
-            return ["energy solution사업지원실 염창열", "energysolution사업지원실염창열", "에너지솔루션사업지원실염창열","에너지 솔루션 사업지원실 염창열","에너지 솔루션사업지원실 염창열"]; // 퀴즈B의 정답
+            return ["energy solution사업지원실 염창열", "energysolution사업지원실염창열", "에너지솔루션사업지원실염창열","에너지 솔루션 사업지원실 염창열","에너지 솔루션사업지원실 염창열","energt solution 사업지원실 염창열","energysolution 사업지원실 염창열"]; // 퀴즈B의 정답
         } else if (quizset === "PGA") {
             return ["우리는 sk를 선택한 구성원","우리는sk를선택한구성원","우리는 sk를 선택한구성원"]; // 퀴즈B의 정답
         } else if (quizset === "PGB") {
@@ -499,7 +536,7 @@
         if (quiz === "LNG1") {
             return ["4832640"]; // 
         } else if (quiz === "LNG2") {
-            return ["clean"]; // 
+            return ["cln"]; // 
         } else if (quiz === "LNG3") {
             return ["손익risk","손익 risk"]; // 
         } else if (quiz === "LNG4") {
@@ -521,21 +558,21 @@
         } else if (quiz === "HYD4") {
             return ["부생수소액화수소plant","부생수소 액화수소plant","부생수소 액화수소플랜트","부생수소액화수소플랜트","부생수소,액화수소플랜트","부생수소, 액화수소플랜트","부생수소, 액화수소plant","부생수소,액화수소plant"]; // 
         } else if (quiz === "SOL1") {
-            return "8053"; // 
+            return ["8053"]; // 
         } else if (quiz === "SOL2") {
-            return "7245"; //
+            return ["7245"]; //
         } else if (quiz === "SOL3") {
-            return "green"; // 
+            return ["green"]; // 
         } else if (quiz === "SOL4") {
-            return "간헐성"; // 
+            return ["간헐성"]; // 
         } else if (quiz === "PGA1") {
-            return "8053"; // 
+            return ["8053"]; // 
         } else if (quiz === "PGA2") {
             return ["구성원전체의행복,vwbe,supex,지속적", "구성원전체의행복, vwbe, supex, 지속적","구성원 전체의 행복, vwbe, supex, 지속적","구성원 전체의 행복,vwbe,supex,지속적"]; // 
         } else if (quiz === "PGB1") {
-            return "part"; // 
+            return ["part"]; // 
         } else if (quiz === "PGB2") {
-            return "cdfhjkoqz"; // 
+            return ["cdfhjkoqz"]; // 
         } 
         // 퀴즈가 추가될 때마다 해당 퀴즈에 대한 정답을 반환하는 로직을 추가
     }
@@ -614,13 +651,14 @@
        <div class="grpelem" id="u286" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"></div>
        <div class="grpelem" id="u289" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"></div>
     </div>
+      <div class="clip_frame clearfix grpelem" id="ending" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- image -->
+            <img class="position_content" id="img_end" src="images/blank.png" alt="" width="994" height="764"/>
+       </div>
     <div class="quiz" id="quiz">
         <div class="clip_frame clearfix grpelem" id="u313" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- image -->
             <img class="position_content" id="img_main" src="images/startcode.png" alt="" width="994" height="764"/>
        </div>
-        <div class="clip_frame clearfix grpelem" id="ending" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- image -->
-            <img class="position_content" id="img_end" src="images/blank.png" alt="" width="994" height="764"/>
-       </div>
+        
        <div class="grpelem" id="u323" data-sizePolicy="fixed" data-pintopage="page_fixedCenter">
             <input id="inputdata" type="text" style="border:0px solid white; background-color:transparent;font-size:32pt; text-align: center;" size="18" placeholder="코드를 입력하세요" maxlength="40" autofocus=""><!-- input -->
         </div>
@@ -628,7 +666,9 @@
             <input id="inputdata2" type="text" style="border:0px solid white; background-color:transparent;font-size:32pt;text-align: center;" size="18" placeholder="정답을 입력하세요" maxlength="24" autofocus=""><!-- input -->
         </div>
        <div class="grpelem" id="u326" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- closebtn --></div>
-       <div class="grpelem" id="u329" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- 시작코드입력버튼 --></div>
+       <div class="grpelem" id="u329" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- 시작코드입력버튼 -->
+        <img class="position_content" id="img_btn" src="images/btn_back.png" alt=""/>
+        </div>
        <div class="grpelem" id="u346" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- 왼쪽버튼 --></div>
        <div class="grpelem" id="u359" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- 오른쪽버튼 --></div>
        <div class="grpelem" id="u372" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- 왼쪽입력버튼 --></div>
