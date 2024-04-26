@@ -4,23 +4,26 @@
 
   <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
   <meta name="generator" content="2018.0.0.379"/>
-  <meta name="viewport" content="width=device-width, initial-scale=0.78, maximum-scale=0.78"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
   
   <script src="jquery-3.6.0.min.js"></script>
 <script>
  $(document).ready(function(){
         $("#page").show();
+        var endTime = new Date();
+        endTime.setMinutes(endTime.getMinutes() + 90);
         var startTime = new Date();
+        startTime.setMinutes(endTime.getMinutes() - 90);
         updateTime();
         setInterval(updateTime, 1000);
-        var endTime;
+
         // 경과 시간 표시 함수
         function updateTime() {
             var currentTime = new Date(); // 현재 시간 가져오기
-            var elapsedTime = currentTime - startTime; // 경과 시간 계산
+            var remainingTime = endTime - currentTime; // 남은 시간 계산
 
             // 밀리초를 초 단위로 변환
-            var seconds = Math.floor(elapsedTime / 1000);
+            var seconds = Math.floor(remainingTime / 1000);
             var hours = Math.floor(seconds / 3600);
             seconds %= 3600;
             var minutes = Math.floor(seconds / 60);
@@ -28,7 +31,7 @@
 
             // 시, 분, 초가 한 자리 수인 경우 앞에 0 추가
             if (hours < 10) {
-            //    hours = "0" + hours;
+                hours = "0" + hours;
             }
             if (minutes < 10) {
                 minutes = "0" + minutes;
@@ -42,8 +45,14 @@
 
             // 타이머를 표시하는 요소에 시간 표시
             document.getElementById("timer").innerHTML = timeString;
-  //          $("#u185").text(timeString);
         }
+
+        // 목표 시간 설정 (현재 시간으로부터 90분 후)
+//        var endTime = new Date();
+//        endTime.setMinutes(endTime.getMinutes() + 90);
+
+
+
 
     var teamname = localStorage.getItem("teamname");
     console.log(teamname);  
@@ -240,11 +249,8 @@
         $("#u329").click(function(){ // 시작코드 정답 체크
                        //     var dynamicVariables["startcode" + quizset] = "0"
                       //      dynamicVariables["startcode" + quizset] = $("#inputdata").val();
-                            startcode[quizset] = $("#inputdata").val().toLowerCase();
-                            var correctCode = getCorrectCode (quizset); // 현재 퀴즈에 대한 정답을 가져옴
-                            var isCorrectcode = correctCode.includes(startcode[quizset]);
-                            if(quizN[quizset] == 2 && quizset =="LNG"){
-                                        console.log("LNG문제2번")
+                            console.log(quizN[quizset]);
+                            if(quizN[quizset] >= 2 && quizset =="LNG"){
                                         $("#img_main").attr('src','./images/q_' + quizset + '_0' + quizN[quizset] + '_1.png');
                                         $("#u324").hide();
                                         $("#u359").show();
@@ -252,9 +258,14 @@
                                         $("#u382").hide();
                                         $("#u375").hide();                                       
                                         $("#u329").hide();
+                                        $("#u326").show(); // X 열기
                                         $("#img_btn").hide();
-                                        return;
+                              //          return;
                                     }
+                            startcode[quizset] = $("#inputdata").val().toLowerCase();
+                            var correctCode = getCorrectCode (quizset); // 현재 퀴즈에 대한 정답을 가져옴
+                            var isCorrectcode = correctCode.includes(startcode[quizset]);
+                            
                                 if(isCorrectcode){
                                     quizFirst[quizset] = 0;
                                     $("#u323").hide();
@@ -271,13 +282,14 @@
                                     }
                                     return;
                                 }
-                                    else{
+                                    else if(quizFirst[quizset] !== 0){
                                         $("#u323").hide();
                                         $("#u329").hide();
                                         $("#u376").show(); // 돌아가기버튼
                                         $("#img_main").attr('src','./images/wrong2.png');
                                         return;
-                                    }   
+                                    }
+                                
             });
             $("#inputdata").keypress(function(event){ // input 엔터로 입력
             //			console.log("test");
@@ -348,59 +360,52 @@
                             var correctAnswer = getCorrectAnswer(quizset+quizN[quizset]); // 현재 퀴즈에 대한 정답을 가져옴
                             var isCorrect = correctAnswer.includes(answerinput[quizset+quizN[quizset]]);
                             if(isCorrect){ // 정답 맞았을 때
-                                    if(quizN[quizset] == 2 && quizset =="LNG"){
-                                        console.log("LNG문제2번")
-                                        $("#img_main").attr('src','./images/q_LNG_02_3.png');
-                                        quizcon[quizset] = 1;
-                                        quizN[quizset] ++;
-                                        quizCount --;
-                                        $("#u324").hide();
-                                        $("#u382").hide();
-                                        $("#u375").hide();
-                                        $("#u372").hide();
-                                        $("#u326").hide();
-                                        $("#u329").show();
-                                        $("#img_btn").show();
-                                        return;
-                                    }
-                                    $("#u324").hide();
-                                    $("#u359").show();
-                                    $("#u346").show();
-                                    $("#u382").hide();
-                                    $("#u375").hide();
-                                    quizcon[quizset] = 1;
-                                    quizN[quizset] ++;
-                                    quizCount --;
-                                    if (quizCount == 0){
-                                            ball ++; // 드래곤볼 + 1
-                                            $("#img_drgb").attr('src','./images/dragonball_'+ball+'.png');
-                                            $("#u178").fadeIn(1000);// 드래곤볼 획득
-                                            return;
-                                            }
-                                    else{
-                                        $("#img_main").attr('src','./images/q_' + quizset + '_0' + quizN[quizset] + '_1.png');
-                                    }
-                        //            $("#u382").hide();
-                        //            ball ++; // 드래곤볼 + 1
-                         //           $("#u161_img").attr('src','./images/star_'+ball+'.png'); // 드래곤볼 이미지 변경
-                                    return;
-                            }else{ // 정답 틀렸을 때
-                                        $("#u324").hide();
-                                        hintpage = 100;
-                                        $("#u375").show(); // 돌아가기버튼
-                                        $("#u372").show();
-  //                                      $("#u372").hide();
-                                        $("#u382").hide();
-                                        $("#inputdata").val("");
-                                        $("#inputdata2").val("");
-                                        $("#img_main").attr('src','./images/wrong.png'); // 땡 이미지
-                                        wronganswer ++;
-                                        $("#u219").text(wronganswer);
-                                 //       wronganswer ++;
-                                 //       $("#u219").text(wronganswer);
-                                        return;
-                                    }   
-            });
+                            if(quizN[quizset] == 2 && quizset =="LNG"){
+                                console.log("LNG문제2번")
+                                $("#img_main").attr('src','./images/q_LNG_02_3.png');
+                                quizcon[quizset] = 1;
+                                quizN[quizset] ++;
+                                quizCount --;
+                                $("#u324").hide();
+                                $("#u382").hide();
+                                $("#u375").hide();
+                                $("#u372").hide();
+                                $("#u326").hide();
+                                $("#u329").show();
+                                $("#img_btn").show();
+                                return;
+                            } else {
+                                $("#u324").hide();
+                                $("#u359").show();
+                                $("#u346").show();
+                                $("#u382").hide();
+                                $("#u375").hide();
+                                quizcon[quizset] = 1;
+                                quizN[quizset] ++;
+                                quizCount --;
+                                if (quizCount == 0){
+                                    ball ++; // 드래곤볼 + 1
+                                    $("#img_drgb").attr('src','./images/dragonball_'+ball+'.png');
+                                    $("#u178").fadeIn(1000); // 드래곤볼 획득
+                                } else {
+                                    $("#img_main").attr('src','./images/q_' + quizset + '_0' + quizN[quizset] + '_1.png');
+                                }
+                                return;
+                            }
+                        } else { // 정답 틀렸을 때
+                            $("#u324").hide();
+                            hintpage = 100;
+                            $("#u375").show(); // 돌아가기버튼
+                            $("#u372").show();
+                            $("#u382").hide();
+                            $("#inputdata").val("");
+                            $("#inputdata2").val("");
+                            $("#img_main").attr('src','./images/wrong.png'); // 땡 이미지
+                            wronganswer ++;
+                            $("#u219").text(wronganswer);
+                            return;
+                        }   
+                    });
             $("#inputdata2").keypress(function(event){
             //			console.log("test");
                         if(event.which == 13) {
@@ -449,7 +454,7 @@
                             }
             });
             $("#u178").click(function(){ //드래곤볼 눌렀을 경우
-                if (ball == 7){ //드래곤볼 7개 됐을 때
+                if (ball == 1){ //드래곤볼 7개 됐을 때
                         $("#ending").show();
                         $("#timerbox").hide();
                         $("#u178").hide();
@@ -458,10 +463,10 @@
                         $("#u189").text(wronganswer);
                         $("#u187").text(hintCount);
                         $("#u190").text(teamname);
-                        var currentTime = new Date(); // 현재 시간 가져오기
-                        var elapsedTime2 = currentTime - startTime;
+                        var currentTime2 = new Date(); // 현재 시간 가져오기
+                        var elapsedTime2 = 216000000 - currentTime2 - startTime;
                         console.log(elapsedTime2);
-                        console.log(currentTime);
+                        console.log(currentTime2);
                         console.log(startTime);
                         var seconds = Math.floor(elapsedTime2 / 1000);
                         var hours = Math.floor(seconds / 3600);
@@ -538,13 +543,13 @@
         } else if (quiz === "LNG2") {
             return ["cln"]; // 
         } else if (quiz === "LNG3") {
-            return ["손익risk","손익 risk"]; // 
+            return ["손익risk","손익 risk","손익,risk","손익, risk"]; // 
         } else if (quiz === "LNG4") {
             return ["bayu undan ccs","bayuundanccs"];
         } else if (quiz === "ENS1") {
             return ["318"]; // 
         } else if (quiz === "ENS2") {
-            return ["당진,임자도,청산,전남","당진, 임자도, 청산, 전남"];
+            return ["당진,임자도,청산,전남","당진, 임자도, 청산, 전남","당진임자도청산전남","당진 임자도 청산 전남"];
         } else if (quiz === "ENS3") {
             return ["인재중요"]; //
         } else if (quiz === "ENS4") {
@@ -568,7 +573,7 @@
         } else if (quiz === "PGA1") {
             return ["8053"]; // 
         } else if (quiz === "PGA2") {
-            return ["구성원전체의행복,vwbe,supex,지속적", "구성원전체의행복, vwbe, supex, 지속적","구성원 전체의 행복, vwbe, supex, 지속적","구성원 전체의 행복,vwbe,supex,지속적"]; // 
+            return ["구성원전체의행복,vwbe,supex,지속적", "구성원전체의행복, vwbe, supex, 지속적","구성원 전체의 행복, vwbe, supex, 지속적","구성원 전체의 행복,vwbe,supex,지속적", "구성원전체의행복vwbesupex지속적"]; // 
         } else if (quiz === "PGB1") {
             return ["part"]; // 
         } else if (quiz === "PGB2") {
