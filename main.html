@@ -10,42 +10,42 @@
 <script>
  $(document).ready(function(){
         $("#page").show();
-        var endTime = new Date();
-        endTime.setMinutes(endTime.getMinutes() + 90);
-        var startTime = new Date();
-        startTime.setMinutes(endTime.getMinutes() - 90);
-        updateTime();
-        setInterval(updateTime, 1000);
+ //       var endTime = new Date();
+//        endTime.setMinutes(endTime.getMinutes() + 90);
+ //       var startTime = new Date();
+ //       startTime.setMinutes(endTime.getMinutes() - 90);
+ //        updateTime();
+ //       setInterval(updateTime, 1000);
 
         // 경과 시간 표시 함수
-        function updateTime() {
-            var currentTime = new Date(); // 현재 시간 가져오기
-            var remainingTime = endTime - currentTime; // 남은 시간 계산
+  //      function updateTime() {
+  //          var currentTime = new Date(); // 현재 시간 가져오기
+  //          var remainingTime = endTime - currentTime; // 남은 시간 계산
 
             // 밀리초를 초 단위로 변환
-            var seconds = Math.floor(remainingTime / 1000);
-            var hours = Math.floor(seconds / 3600);
-            seconds %= 3600;
-            var minutes = Math.floor(seconds / 60);
-            seconds %= 60;
+  //          var seconds = Math.floor(remainingTime / 1000);
+  //          var hours = Math.floor(seconds / 3600);
+   //         seconds %= 3600;
+   //         var minutes = Math.floor(seconds / 60);
+   //         seconds %= 60;
 
             // 시, 분, 초가 한 자리 수인 경우 앞에 0 추가
-            if (hours < 10) {
-                hours = "0" + hours;
-            }
-            if (minutes < 10) {
-                minutes = "0" + minutes;
-            }
-            if (seconds < 10) {
-                seconds = "0" + seconds;
-            }
+   //         if (hours < 10) {
+   //             hours = "0" + hours;
+   //         }
+   //         if (minutes < 10) {
+   //             minutes = "0" + minutes;
+  //          }
+  //          if (seconds < 10) {
+   //             seconds = "0" + seconds;
+   //         }
 
             // 시간 표시 형식: HH:MM:SS
-            var timeString = hours + ":" + minutes + ":" + seconds;
+ //           var timeString = hours + ":" + minutes + ":" + seconds;
 
             // 타이머를 표시하는 요소에 시간 표시
-            document.getElementById("timer").innerHTML = timeString;
-        }
+  //          document.getElementById("timer").innerHTML = timeString;
+   //     }
 
         // 목표 시간 설정 (현재 시간으로부터 90분 후)
 //        var endTime = new Date();
@@ -73,7 +73,7 @@
     var startcode = {}; // 스타트코드
     var answerinput = {}; // 답 입력 변수
     var quizPages = { // 문제당 페이지수
-                            LNG1 : 2, LNG2 : 2, LNG3 : 2, LNG4 : 2,
+                            LNG1 : 2, LNG2 : 3, LNG3 : 2, LNG4 : 2,
                             ENS1 : 2, ENS2 : 2, ENS3 : 2, ENS4 : 2,
                             HYD1 : 2, HYD2 : 2, HYD3 : 2, HYD4 : 2,
                             SOL1 : 2, SOL2 : 2, SOL3 : 2, SOL4 : 2,
@@ -362,7 +362,7 @@
                             if(isCorrect){ // 정답 맞았을 때
                             if(quizN[quizset] == 2 && quizset =="LNG"){
                                 console.log("LNG문제2번")
-                                $("#img_main").attr('src','./images/q_LNG_02_3.png');
+                                $("#img_main").attr('src','./images/q_LNG_02_4.png');
                                 quizcon[quizset] = 1;
                                 quizN[quizset] ++;
                                 quizCount --;
@@ -454,7 +454,7 @@
                             }
             });
             $("#u178").click(function(){ //드래곤볼 눌렀을 경우
-                if (ball == 1){ //드래곤볼 7개 됐을 때
+                if (ball == 3){ //드래곤볼 7개 됐을 때
                         $("#ending").show();
                         $("#timerbox").hide();
                         $("#u178").hide();
@@ -463,39 +463,39 @@
                         $("#u189").text(wronganswer);
                         $("#u187").text(hintCount);
                         $("#u190").text(teamname);
-                        var currentTime2 = new Date(); // 현재 시간 가져오기
-                        var elapsedTime2 = 216000000 - currentTime2 - startTime;
-                        console.log(elapsedTime2);
-                        console.log(currentTime2);
-                        console.log(startTime);
-                        var seconds = Math.floor(elapsedTime2 / 1000);
-                        var hours = Math.floor(seconds / 3600);
-                        seconds %= 3600;
-                        var minutes = Math.floor(seconds / 60);
-                        seconds %= 60;
+      //                  var currentTime2 = new Date(); // 현재 시간 가져오기
+       //                 var elapsedTime2 = currentTime2 - startTime;
+      //                  console.log(elapsedTime2);
+      //                  console.log(currentTime2);
+      //                  console.log(startTime);
+      //                  var seconds = Math.floor(elapsedTime2 / 1000);
+     //                   var hours = Math.floor(seconds / 3600);
+      //                  seconds %= 3600;
+      //                  var minutes = Math.floor(seconds / 60);
+      //                  seconds %= 60;
 
                         // 시, 분, 초가 한 자리 수인 경우 앞에 0 추가
-                        if (hours < 10) {
+     //                   if (hours < 10) {
                         //    hours = "0" + hours;
-                        }
-                        if (minutes < 10) {
-                            minutes = "0" + minutes;
-                        }
-                        if (seconds < 10) {
-                            seconds = "0" + seconds;
-                        }
+     //                   }
+     //                   if (minutes < 10) {
+     //                       minutes = "0" + minutes;
+     //                   }
+     //                   if (seconds < 10) {
+     //                       seconds = "0" + seconds;
+     //                   }
 
                         // 시간 표시 형식: HH:MM:SS
-                        var timeString = hours + ":" + minutes + ":" + seconds;
-                        console.log(timeString);
+    //                    var timeString = hours + ":" + minutes + ":" + seconds;
+    //                    console.log(timeString);
                         // u185 요소에 시간 표시
-                        $("#u185").text(timeString);
+          //              $("#u185").text(timeString);
                         return;    
                     }else{
                         $("#u178").hide();
-                        $("#ending").show();
                         $("#img_end").attr('src','./images/end_'+quizset+'.png'); //완료
                         $("#u161_img").attr('src','./images/star_'+ball+'.png'); // 드래곤볼 이미지 변경
+                        $("#ending").show();
                         placeId = "#place" + quizset;
                         $(placeId).attr('src','./images/complete.png');
                         $("#quiz").hide();
@@ -545,9 +545,9 @@
         } else if (quiz === "LNG3") {
             return ["손익risk","손익 risk","손익,risk","손익, risk"]; // 
         } else if (quiz === "LNG4") {
-            return ["bayu undan ccs","bayuundanccs"];
+            return ["bayu undan ccs","bayuundanccs","bayu-undanccs","bayu-undan ccs"];
         } else if (quiz === "ENS1") {
-            return ["318"]; // 
+            return ["기발하지"]; // 
         } else if (quiz === "ENS2") {
             return ["당진,임자도,청산,전남","당진, 임자도, 청산, 전남","당진임자도청산전남","당진 임자도 청산 전남"];
         } else if (quiz === "ENS3") {
@@ -571,13 +571,13 @@
         } else if (quiz === "SOL4") {
             return ["간헐성"]; // 
         } else if (quiz === "PGA1") {
-            return ["8053"]; // 
+            return ["9383"]; // 
         } else if (quiz === "PGA2") {
-            return ["구성원전체의행복,vwbe,supex,지속적", "구성원전체의행복, vwbe, supex, 지속적","구성원 전체의 행복, vwbe, supex, 지속적","구성원 전체의 행복,vwbe,supex,지속적", "구성원전체의행복vwbesupex지속적"]; // 
+            return ["구성원전체의행복,vwbe,supex,지속적", "구성원전체의행복, vwbe, supex, 지속적","구성원 전체의 행복, vwbe, supex, 지속적","구성원 전체의 행복,vwbe,supex,지속적", "구성원전체의행복vwbesupex지속적","구성원전체의행복 vwbe supex 지속적"]; // 
         } else if (quiz === "PGB1") {
             return ["part"]; // 
         } else if (quiz === "PGB2") {
-            return ["cdfhjkoqz"]; // 
+            return ["cdfhjkqz"]; // 
         } 
         // 퀴즈가 추가될 때마다 해당 퀴즈에 대한 정답을 반환하는 로직을 추가
     }
@@ -665,10 +665,10 @@
        </div>
         
        <div class="grpelem" id="u323" data-sizePolicy="fixed" data-pintopage="page_fixedCenter">
-            <input id="inputdata" type="text" style="border:0px solid white; background-color:transparent;font-size:32pt; text-align: center;" size="18" placeholder="코드를 입력하세요" maxlength="40" autofocus=""><!-- input -->
+            <input id="inputdata" type="text" style="border:0px solid white; background-color:transparent;font-size:32pt; text-align: center;" size="18" placeholder="코드를 입력하세요" maxlength="42" autofocus=""><!-- input -->
         </div>
         <div class="grpelem" id="u324" data-sizePolicy="fixed" data-pintopage="page_fixedCenter">
-            <input id="inputdata2" type="text" style="border:0px solid white; background-color:transparent;font-size:32pt;text-align: center;" size="18" placeholder="정답을 입력하세요" maxlength="24" autofocus=""><!-- input -->
+            <input id="inputdata2" type="text" style="border:0px solid white; background-color:transparent;font-size:32pt;text-align: center;" size="18" placeholder="정답을 입력하세요" maxlength="42" autofocus=""><!-- input -->
         </div>
        <div class="grpelem" id="u326" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- closebtn --></div>
        <div class="grpelem" id="u329" data-sizePolicy="fixed" data-pintopage="page_fixedCenter"><!-- 시작코드입력버튼 -->
