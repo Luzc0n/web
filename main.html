@@ -95,10 +95,10 @@
     var quizFirst = { // 시작/클리어여부
         LNG : 1, ENS : 1, HYD : 1, SOL : 1, PGA : 1, PGB : 1, Health : 1
     };
-    var quizCount = 100;
-    var placeId = "#place" + quizset;
+    var quizCount = 100; // 초기상태
+    var placeId = "#place" + quizset; //드래곤볼 작은 이미지용
     var resetN = 0;
-    displayHint();
+    displayHint(); // 힌트갯수 표시
 
 
     function useHint(quizSet) {
@@ -265,8 +265,16 @@
                             startcode[quizset] = $("#inputdata").val().toLowerCase();
                             var correctCode = getCorrectCode (quizset); // 현재 퀴즈에 대한 정답을 가져옴
                             var isCorrectcode = correctCode.includes(startcode[quizset]);
-                            
-                                if(isCorrectcode){
+                            if(startcode[quizset] == "pass1"){
+                                     //   quizFirst[quizset] = 0;
+                                        $("#u323").hide();
+                                        $("#u329").hide();
+                                      //  quizCount == 0
+                                        ball ++; // 드래곤볼 + 1
+                                        $("#img_drgb").attr('src','./images/dragonball_'+ball+'.png');
+                                        $("#u178").fadeIn(1000); // 드래곤볼 획득
+                                        return;
+                                    }else if(isCorrectcode){
                                     quizFirst[quizset] = 0;
                                     $("#u323").hide();
                                     $("#u329").hide();
@@ -288,6 +296,7 @@
                                         $("#u376").show(); // 돌아가기버튼
                                         $("#img_main").attr('src','./images/wrong2.png');
                                         return;
+                                    
                                     }
                                 
             });
@@ -454,11 +463,11 @@
                             }
             });
             $("#u178").click(function(){ //드래곤볼 눌렀을 경우
-                if (ball == 3){ //드래곤볼 7개 됐을 때
+                if (ball == 7){ //드래곤볼 7개 됐을 때
+                        $("#img_end").attr('src','./images/ending_stat.png');
                         $("#ending").show();
                         $("#timerbox").hide();
                         $("#u178").hide();
-                        $("#img_end").attr('src','./images/ending_stat.png');
                         $("#endstat").show();
                         $("#u189").text(wronganswer);
                         $("#u187").text(hintCount);
@@ -492,9 +501,10 @@
           //              $("#u185").text(timeString);
                         return;    
                     }else{
-                        $("#u178").hide();
+                        //$("#u178").hide();
                         $("#img_end").attr('src','./images/end_'+quizset+'.png'); //완료
                         $("#u161_img").attr('src','./images/star_'+ball+'.png'); // 드래곤볼 이미지 변경
+                        $("#u178").hide();
                         $("#ending").show();
                         placeId = "#place" + quizset;
                         $(placeId).attr('src','./images/complete.png');
@@ -519,19 +529,19 @@
         // 각 퀴즈에 대한 정답을 반환하는 함수
         // quizset이 A이면 퀴즈A의 정답을 반환하고, B이면 퀴즈B의 정답을 반환하는 등의 로직을 구현
         if (quizset === "LNG") {
-            return ["전력사업부문 전영준, 도시가스사업부문 문상학, lng사업부문 이종수","전력사업부문전영준,도시가스사업부문문상학,lng사업부문이종수","전력사업부문 전영준,도시가스사업부문 문상학,lng사업부문 이종수","전력사업부문전영준, 도시가스사업부문문상학, lng사업부문이종수","전력사업부문 전영준, 도시가스사업부문 문상학, lng사업부문이종수","전력사업부문전영준, 도시가스사업부문 문상학, lng사업부문 이종수","전력사업부문 전영준, 도시가스사업부문문상학, lng사업부문 이종수"]; // 퀴즈A의 정답
+            return ["전력사업부문 전영준, 도시가스사업부문 문상학, lng사업부문 이종수","전력사업부문전영준,도시가스사업부문문상학,lng사업부문이종수","전력사업부문 전영준,도시가스사업부문 문상학,lng사업부문 이종수","전력사업부문전영준, 도시가스사업부문문상학, lng사업부문이종수","전력사업부문 전영준, 도시가스사업부문 문상학, lng사업부문이종수","전력사업부문전영준, 도시가스사업부문 문상학, lng사업부문 이종수","전력사업부문 전영준, 도시가스사업부문문상학, lng사업부문 이종수","p1"]; // 퀴즈A의 정답
         } else if (quizset === "ENS") {
-            return ["서건기 부문장","서건기부문장"]; // 퀴즈B의 정답
+            return ["서건기 부문장","서건기부문장","p1"]; // 퀴즈B의 정답
         } else if (quizset === "HYD") {
-            return ["문상요"]; // 퀴즈B의 정답
+            return ["문상요","p1"]; // 퀴즈B의 정답
         } else if (quizset === "SOL") {
-            return ["energy solution사업지원실 염창열", "energysolution사업지원실염창열", "에너지솔루션사업지원실염창열","에너지 솔루션 사업지원실 염창열","에너지 솔루션사업지원실 염창열","energt solution 사업지원실 염창열","energysolution 사업지원실 염창열"]; // 퀴즈B의 정답
+            return ["energy solution사업지원실 염창열", "energysolution사업지원실염창열", "에너지솔루션사업지원실염창열","에너지 솔루션 사업지원실 염창열","에너지 솔루션사업지원실 염창열","energt solution 사업지원실 염창열","energysolution 사업지원실 염창열","p1"]; // 퀴즈B의 정답
         } else if (quizset === "PGA") {
-            return ["우리는 sk를 선택한 구성원","우리는sk를선택한구성원","우리는 sk를 선택한구성원"]; // 퀴즈B의 정답
+            return ["우리는 sk를 선택한 구성원","우리는sk를선택한구성원","우리는 sk를 선택한구성원","p1"]; // 퀴즈B의 정답
         } else if (quizset === "PGB") {
-            return ["함께해야 더 행복한 우리","함께해야더행복한우리","함께해야 더행복한 우리"]; // 퀴즈B의 정답
+            return ["함께해야 더 행복한 우리","함께해야더행복한우리","함께해야 더행복한 우리","p1"]; // 퀴즈B의 정답
         } else if (quizset === "Health") {
-            return ["행복경영팀1"]; // 퀴즈B의 정답
+            return ["행복경영팀1","p1"]; // 퀴즈B의 정답
         }
         // 퀴즈가 추가될 때마다 해당 퀴즈에 대한 정답을 반환하는 로직을 추가
     }
@@ -539,45 +549,45 @@
         // 각 퀴즈에 대한 정답을 반환하는 함수
         // quizset이 A이면 퀴즈A의 정답을 반환하고, B이면 퀴즈B의 정답을 반환하는 등의 로직을 구현
         if (quiz === "LNG1") {
-            return ["4832640"]; // 
+            return ["4832640","p1"]; // 
         } else if (quiz === "LNG2") {
-            return ["cln"]; // 
+            return ["cln","p1"]; // 
         } else if (quiz === "LNG3") {
-            return ["손익risk","손익 risk","손익,risk","손익, risk"]; // 
+            return ["손익risk","손익 risk","손익,risk","손익, risk","p1"]; // 
         } else if (quiz === "LNG4") {
-            return ["bayu undan ccs","bayuundanccs","bayu-undanccs","bayu-undan ccs"];
+            return ["bayu undan ccs","bayuundanccs","bayu-undanccs","bayu-undan ccs","p1"];
         } else if (quiz === "ENS1") {
-            return ["기발하지"]; // 
+            return ["기발하지","p1"]; // 
         } else if (quiz === "ENS2") {
-            return ["당진,임자도,청산,전남","당진, 임자도, 청산, 전남","당진임자도청산전남","당진 임자도 청산 전남"];
+            return ["당진,임자도,청산,전남","당진, 임자도, 청산, 전남","당진임자도청산전남","당진 임자도 청산 전남","p1"];
         } else if (quiz === "ENS3") {
-            return ["인재중요"]; //
+            return ["인재중요","p1"]; //
         } else if (quiz === "ENS4") {
-            return ["re100ppa","re100 ppa","re100,ppa","re100, ppa"]; // 
+            return ["re100ppa","re100 ppa","re100,ppa","re100, ppa","p1"]; // 
         } else if (quiz === "HYD1") {
-            return ["bcfg"]; // 
+            return ["bcfg","p1"]; // 
         } else if (quiz === "HYD2") {
-            return ["4310"]; // 
+            return ["4310","p1"]; // 
         } else if (quiz === "HYD3") {
-            return ["화석연료안전탄소중립국내에너지자립도","화석연료 안전 탄소중립 국내에너지자립도","화석연료, 안전, 탄소중립, 국내에너지자립도","화석연료,안전,탄소중립,국내에너지자립도"]; // 
+            return ["화석연료안전탄소중립국내에너지자립도","화석연료 안전 탄소중립 국내에너지자립도","화석연료, 안전, 탄소중립, 국내에너지자립도","화석연료,안전,탄소중립,국내에너지자립도","p1"]; // 
         } else if (quiz === "HYD4") {
-            return ["부생수소액화수소plant","부생수소 액화수소plant","부생수소 액화수소플랜트","부생수소액화수소플랜트","부생수소,액화수소플랜트","부생수소, 액화수소플랜트","부생수소, 액화수소plant","부생수소,액화수소plant"]; // 
+            return ["부생수소액화수소plant","부생수소 액화수소plant","부생수소 액화수소플랜트","부생수소액화수소플랜트","부생수소,액화수소플랜트","부생수소, 액화수소플랜트","부생수소, 액화수소plant","부생수소,액화수소plant","p1"]; // 
         } else if (quiz === "SOL1") {
-            return ["8053"]; // 
+            return ["8053","p1"]; // 
         } else if (quiz === "SOL2") {
-            return ["7245"]; //
+            return ["7245","p1"]; //
         } else if (quiz === "SOL3") {
-            return ["green"]; // 
+            return ["green","p1"]; // 
         } else if (quiz === "SOL4") {
-            return ["간헐성"]; // 
+            return ["간헐성","p1"]; // 
         } else if (quiz === "PGA1") {
-            return ["9383"]; // 
+            return ["9383","p1"]; // 
         } else if (quiz === "PGA2") {
-            return ["구성원전체의행복,vwbe,supex,지속적", "구성원전체의행복, vwbe, supex, 지속적","구성원 전체의 행복, vwbe, supex, 지속적","구성원 전체의 행복,vwbe,supex,지속적", "구성원전체의행복vwbesupex지속적","구성원전체의행복 vwbe supex 지속적"]; // 
+            return ["구성원전체의행복,vwbe,supex,지속적", "구성원전체의행복, vwbe, supex, 지속적","구성원 전체의 행복, vwbe, supex, 지속적","구성원 전체의 행복,vwbe,supex,지속적", "구성원전체의행복vwbesupex지속적","구성원전체의행복 vwbe supex 지속적","p1"]; // 
         } else if (quiz === "PGB1") {
-            return ["part"]; // 
+            return ["part","p1"]; // 
         } else if (quiz === "PGB2") {
-            return ["cdfhjkqz"]; // 
+            return ["dfhjkqz","p1"]; // 
         } 
         // 퀴즈가 추가될 때마다 해당 퀴즈에 대한 정답을 반환하는 로직을 추가
     }
